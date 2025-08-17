@@ -1,19 +1,31 @@
 // src/main/scala/GameController.scala
-import javafx.animation.{KeyFrame, Timeline}
-import javafx.application.Platform
-import javafx.beans.binding.Bindings
-import javafx.fxml.{FXML, FXMLLoader}
+import javafx.fxml.FXML
 import javafx.scene.control.{Button, Label}
-import javafx.scene.image.ImageView
+import javafx.scene.layout.{GridPane, StackPane, AnchorPane}
+import javafx.scene.image.{Image, ImageView}
 import javafx.scene.input.MouseEvent
-import javafx.scene.layout.{AnchorPane, GridPane, StackPane}
-import javafx.scene.{Parent, Scene}
+import javafx.beans.binding.Bindings
+import javafx.scene.Parent
 import javafx.stage.Stage
-import scalafx.Includes.*
-import scalafx.scene.control.{Button as SfxButton, Label as SfxLabel}
+import javafx.scene.Scene
+import javafx.fxml.FXMLLoader
+import scala.util.Random
+import javafx.animation.{KeyFrame, Timeline}
+import javafx.util.Duration
+import scala.collection.JavaConverters._
+import javafx.application.Platform
+import javafx.scene.effect.GaussianBlur
+
+import scalafx.Includes._
+import scalafx.scene.control.Button as SfxButton
+import scalafx.scene.control.Label as SfxLabel
+import scalafx.scene.layout.GridPane as SfxGridPane
+import scalafx.scene.layout.StackPane as SfxStackPane
+import scalafx.scene.layout.AnchorPane as SfxAnchorPane
+import scalafx.scene.image.{Image as SfxImage, ImageView as SfxImageView}
+import scalafx.animation.{Timeline as SfxTimeline, KeyFrame as SfxKeyFrame}
+import scalafx.util.Duration as SfxDuration
 import scalafx.scene.effect.GaussianBlur as SfxGaussianBlur
-import scalafx.scene.image.ImageView as SfxImageView
-import scalafx.scene.layout.{AnchorPane as SfxAnchorPane, GridPane as SfxGridPane, StackPane as SfxStackPane}
 
 class GameController {
 
@@ -68,8 +80,8 @@ class GameController {
 
     for (y <- 0 until gameModel.mapHeight; x <- 0 until gameModel.mapWidth) {
       val imageView = new SfxImageView(imageManager.grassImage)
-      imageView.fitWidth = 80
-      imageView.fitHeight = 80
+      imageView.fitWidth = 64.0
+      imageView.fitHeight = 64.0
       imageView.onMouseClicked = (event: MouseEvent) => {
         handleFarmClick(x, y)
       }
@@ -244,7 +256,7 @@ class GameController {
         inventoryController.dialogStage = inventoryStage
         inventoryController.setGameModel(gameModel)
         inventoryController.setImageManager(imageManager)
-        inventoryController.parentController = this
+        inventoryController.currentCategory = category
         inventoryController.initData()
 
         inventoryStage.show()
@@ -297,7 +309,7 @@ class GameController {
 
       case "Seeding" =>
         if (selectedSeed.nonEmpty && farmTile.state.value == Hoeing) {
-          val seedCount = Option(gameModel.inventory.get(selectedSeed)).map(_.intValue()).getOrElse(0)
+          val seedCount = gameModel.inventory.asScala.get(selectedSeed).map(_.intValue()).getOrElse(0)
           if (seedCount > 0) {
             gameModel.performSeeding(x, y, selectedSeed)
             updateFarmView()
