@@ -12,19 +12,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
+<AnchorPane fx:id="mainRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
     <children>
-        <AnchorPane fx:id="gameContentPane" prefHeight="800.0" prefWidth="1000.0">
+        <AnchorPane fx:id="gameContentPane" prefHeight="800.0" prefWidth="800.0">
             <children>
-                <ImageView fx:id="backgroundImageView" fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="backgroundImageView" fitHeight="800.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="false">
                     <image>
-                        <Image url="@/images/main_background.jpg" />
+                        <Image url="@/images/main_background.png" />
                     </image>
                 </ImageView>
-                <GridPane fx:id="farmGrid" layoutX="173.0" layoutY="51.0" AnchorPane.bottomAnchor="149.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="227.0" AnchorPane.topAnchor="51.0">
+                <GridPane fx:id="farmGrid" hgap="0" vgap="0" layoutX="208.0" layoutY="208.0" prefHeight="384.0" prefWidth="384.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -39,11 +37,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                 </GridPane>
-                <VBox layoutX="24.0" layoutY="29.0" prefHeight="200.0" prefWidth="150.0" spacing="10.0">
+                <VBox fx:id="leftInfoPane" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="150.0" spacing="10.0">
                     <children>
                         <Label fx:id="dayLabel" text="Day 1" />
                         <Label fx:id="moneyLabel" text="Money: 500" />
@@ -52,20 +48,20 @@
                         <Button fx:id="endGameButton" mnemonicParsing="false" text="End Game" />
                     </children>
                 </VBox>
-                <HBox layoutX="786.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
-                    <children>
-                        <Button fx:id="inventoryButton" mnemonicParsing="false" text="Inventory" />
-                        <Button fx:id="shopButton" mnemonicParsing="false" text="Shop" />
-                        <Button fx:id="historyButton" mnemonicParsing="false" text="History" />
-                    </children>
-                </HBox>
-                <HBox layoutX="215.0" layoutY="665.0" prefHeight="100.0" prefWidth="600.0">
+                <HBox fx:id="bottomButtonPane" layoutX="100.0" layoutY="700.0" prefHeight="50.0" prefWidth="600.0">
                     <children>
                         <Button fx:id="hoeButton" mnemonicParsing="false" text="Hoe" />
                         <Button fx:id="seedButton" mnemonicParsing="false" text="Seed" />
                         <Button fx:id="waterButton" mnemonicParsing="false" text="Water" />
                         <Button fx:id="harvestButton" mnemonicParsing="false" text="Harvest" />
                         <Button fx:id="restButton" mnemonicParsing="false" text="Rest" />
+                    </children>
+                </HBox>
+                <HBox layoutX="574.0" layoutY="14.0" prefHeight="100.0" prefWidth="186.0" spacing="10.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                    <children>
+                        <Button fx:id="inventoryButton" mnemonicParsing="false" text="Inventory" />
+                        <Button fx:id="shopButton" mnemonicParsing="false" text="Shop" />
+                        <Button fx:id="historyButton" mnemonicParsing="false" text="History" />
                     </children>
                 </HBox>
                 <StackPane fx:id="messageContainer" layoutX="590.0" layoutY="70.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,0.5); -fx-background-radius: 10;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="70.0">
@@ -75,10 +71,9 @@
                 </StackPane>
             </children>
         </AnchorPane>
-
-        <AnchorPane fx:id="endGameOverlay" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="endGameOverlay" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="CENTER" layoutX="250.0" layoutY="200.0" prefHeight="300.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #f5e8d8; -fx-border-color: #a48c6b; -fx-border-width: 5; -fx-background-radius: 10; -fx-border-radius: 10;">
+                <VBox alignment="CENTER" layoutX="150.0" layoutY="250.0" prefHeight="300.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #f5e8d8; -fx-border-color: #a48c6b; -fx-border-width: 5; -fx-background-radius: 10; -fx-border-radius: 10;">
                     <children>
                         <Label fx:id="endGameTitleLabel" text="Game Over" style="-fx-font-size: 36; -fx-font-weight: bold;"/>
                         <Label fx:id="endGameMessageLabel" text="You have achieved the objective!" wrapText="true" />
